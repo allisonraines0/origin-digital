@@ -1,0 +1,16 @@
+<header class="masthead">
+  <div class="masthead-inner">
+    <a routerLink="/" class="brand">
+      <span class="brand-mark">RD</span>
+      <span class="brand-name">{{ title }}</span>
+    </a>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">All events</a>
+      <a routerLink="/events/new" routerLinkActive="is-active" class="nav-cta">New event</a>
+    </nav>
+  </div>
+</header>
+
+<main class="content">
+  <router-outlet />
+</main>

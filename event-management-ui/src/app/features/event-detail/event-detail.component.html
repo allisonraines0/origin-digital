@@ -1,0 +1,88 @@
+@if (loadError()) {
+  <div class="banner banner-danger" role="alert">{{ loadError() }}</div>
+}
+
+@if (loading()) {
+  <p class="muted">Loading event…</p>
+} @else {
+  @let currentEvent = event();
+  @if (currentEvent) {
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Event manifest</span>
+        <h1>{{ currentEvent.title }}</h1>
+        <div class="event-detail-meta">
+          <span class="mono">{{ currentEvent.date | date: 'EEEE, MMM d, y · h:mm a' }}</span>
+          @if (currentEvent.isPastEvent) {
+            <span class="tag tag-muted">Past</span>
+          }
+        </div>
+      </div>
+      <a [routerLink]="['/events', currentEvent.id, 'edit']" class="btn btn-ghost">Edit event</a>
+    </div>
+
+    @if (currentEvent.description) {
+      <p class="event-detail-desc">{{ currentEvent.description }}</p>
+    }
+
+    <div class="capacity-panel">
+      <app-capacity-gauge [registeredCount]="currentEvent.registeredCount" [maxCapacity]="currentEvent.maxCapacity" />
+      <span class="capacity-spots muted">{{ currentEvent.availableSpots }} spots left</span>
+    </div>
+
+    <section class="register-section">
+      <h2>Register an attendee</h2>
+
+      @if (currentEvent.isPastEvent) {
+        <p class="muted">This event has already happened — new registrations are closed.</p>
+      } @else if (currentEvent.availableSpots <= 0) {
+        <p class="muted">This event is at capacity.</p>
+      } @else {
+        @if (registerError()) {
+          <div class="banner banner-danger" role="alert">{{ registerError() }}</div>
+        }
+        <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+          <div
+            class="field field-inline"
+            [class.has-error]="registerForm.controls.userId.invalid && registerForm.controls.userId.touched"
+          >
+            <label for="userId" class="visually-hidden">User ID</label>
+            <input id="userId" type="text" formControlName="userId" placeholder="User ID, e.g. alice@example.com" />
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="registering()">
+            {{ registering() ? 'Registering…' : 'Register' }}
+          </button>
+        </form>
+      }
+    </section>
+
+    <section class="manifest-section">
+      <h2>Registered ({{ registrations().length }})</h2>
+
+      @if (rowError()) {
+        <div class="banner banner-danger" role="alert">{{ rowError() }}</div>
+      }
+
+      @if (registrations().length === 0) {
+        <p class="muted">No one has registered yet.</p>
+      } @else {
+        <ul class="manifest-list">
+          @for (registration of registrations(); track registration.id) {
+            <li class="manifest-row">
+              <span class="manifest-user">{{ registration.userId }}</span>
+              <span class="manifest-date mono muted">{{ registration.registeredAt | date: 'MMM d, y · h:mm a' }}</span>
+              <button
+                type="button"
+                class="btn btn-ghost btn-danger btn-sm"
+                [disabled]="unregisteringUserId() === registration.userId"
+                (click)="unregister(registration)"
+              >
+                {{ unregisteringUserId() === registration.userId ? 'Removing…' : 'Unregister' }}
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+}

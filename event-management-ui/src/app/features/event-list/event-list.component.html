@@ -1,0 +1,60 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow">Ledger</span>
+    <h1>All events</h1>
+  </div>
+  <a routerLink="/events/new" class="btn btn-primary">New event</a>
+</div>
+
+@if (error()) {
+  <div class="banner banner-danger" role="alert">
+    {{ error() }}
+  </div>
+}
+
+@if (loading()) {
+  <p class="muted">Loading events…</p>
+} @else if (events().length === 0) {
+  <div class="empty-state">
+    <h2>No events yet</h2>
+    <p>Create the first event to start taking registrations.</p>
+    <a routerLink="/events/new" class="btn btn-primary">New event</a>
+  </div>
+} @else {
+  <ul class="event-list">
+    @for (event of events(); track event.id) {
+      <li class="event-card" [class.event-card--past]="event.isPastEvent">
+        <div class="event-card-main">
+          <a [routerLink]="['/events', event.id]" class="event-title">{{ event.title }}</a>
+          <div class="event-meta">
+            <span class="mono">{{ event.date | date: 'MMM d, y · h:mm a' }}</span>
+            @if (event.isPastEvent) {
+              <span class="tag tag-muted">Past</span>
+            }
+          </div>
+          @if (event.description) {
+            <p class="event-desc">{{ event.description }}</p>
+          }
+        </div>
+        <div class="event-card-side">
+          <app-capacity-gauge
+            [registeredCount]="event.registeredCount"
+            [maxCapacity]="event.maxCapacity"
+          />
+          <div class="event-card-actions">
+            <a [routerLink]="['/events', event.id]" class="btn btn-ghost">View</a>
+            <a [routerLink]="['/events', event.id, 'edit']" class="btn btn-ghost">Edit</a>
+            <button
+              type="button"
+              class="btn btn-ghost btn-danger"
+              [disabled]="deletingId() === event.id"
+              (click)="deleteEvent(event)"
+            >
+              {{ deletingId() === event.id ? 'Deleting…' : 'Delete' }}
+            </button>
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+}

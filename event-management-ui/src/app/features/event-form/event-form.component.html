@@ -1,0 +1,58 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow">{{ isEditMode() ? 'Edit' : 'New' }}</span>
+    <h1>{{ isEditMode() ? 'Edit event' : 'Create an event' }}</h1>
+  </div>
+</div>
+
+@if (error()) {
+  <div class="banner banner-danger" role="alert">{{ error() }}</div>
+}
+
+@if (loading()) {
+  <p class="muted">Loading event…</p>
+} @else {
+  <form class="form-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field" [class.has-error]="form.controls.title.invalid && form.controls.title.touched">
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title" placeholder="Annual Tech Conference" />
+      @if (form.controls.title.invalid && form.controls.title.touched) {
+        <span class="field-error">Title is required.</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" placeholder="What's this event about?"></textarea>
+    </div>
+
+    <div class="field" [class.has-error]="form.controls.date.invalid && form.controls.date.touched">
+      <label for="date">Date &amp; time</label>
+      <input id="date" type="datetime-local" formControlName="date" />
+      @if (form.controls.date.invalid && form.controls.date.touched) {
+        <span class="field-error">A date and time is required.</span>
+      }
+    </div>
+
+    <div
+      class="field"
+      [class.has-error]="form.controls.maxCapacity.invalid && form.controls.maxCapacity.touched"
+    >
+      <label for="maxCapacity">Max capacity</label>
+      <input id="maxCapacity" type="number" min="1" formControlName="maxCapacity" />
+      @if (form.controls.maxCapacity.invalid && form.controls.maxCapacity.touched) {
+        <span class="field-error">Capacity must be at least 1.</span>
+      }
+      @if (isEditMode()) {
+        <span class="field-hint">Can't be set below the number of people already registered.</span>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Saving…' : isEditMode() ? 'Save changes' : 'Create event' }}
+      </button>
+      <a routerLink="/" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+}

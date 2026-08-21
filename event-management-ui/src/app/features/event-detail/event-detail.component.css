@@ -1,0 +1,116 @@
+.event-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  margin-top: 0.25rem;
+}
+
+.event-detail-desc {
+  max-width: 68ch;
+  color: var(--color-ink-soft);
+  margin: 0 0 1.5rem;
+}
+
+.capacity-panel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+.capacity-panel app-capacity-gauge {
+  flex: 1;
+}
+
+.capacity-spots {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+section {
+  margin-bottom: 2.25rem;
+}
+
+section h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+}
+
+.register-form {
+  display: flex;
+  gap: 0.6rem;
+  max-width: 480px;
+}
+
+.field-inline {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.manifest-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-panel);
+}
+
+.manifest-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.manifest-row:last-child {
+  border-bottom: none;
+}
+
+.manifest-user {
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manifest-date {
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 560px) {
+  .register-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .manifest-row {
+    flex-wrap: wrap;
+  }
+}

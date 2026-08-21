@@ -1,0 +1,87 @@
+.event-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.event-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.event-card--past {
+  opacity: 0.72;
+}
+
+.event-card-main {
+  min-width: 0;
+}
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.event-title:hover {
+  color: var(--color-navy);
+}
+
+.event-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+}
+
+.event-desc {
+  margin: 0.5rem 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+  max-width: 48ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-card-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.event-card-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+@media (max-width: 640px) {
+  .event-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .event-card-side {
+    align-items: stretch;
+  }
+
+  .event-card-actions {
+    justify-content: flex-end;
+  }
+}
