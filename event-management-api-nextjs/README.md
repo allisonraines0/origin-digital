@@ -49,10 +49,6 @@ npm run dev      # starts on http://localhost:3000
 
 Visit `http://localhost:3000` for a summary of the endpoints, or hit `/api/events` directly.
 
-```bash
-npm run build && npm start   # production build + run
-```
-
 ## Run the tests
 
 ```bash
