@@ -1,16 +1,5 @@
 # Registration Desk — Angular front end
 
-An Angular 19 (standalone components, signals, reactive forms) front end for the
-Event Management API. Lets you create/edit/delete events and manage attendee
-registrations against the [Node.js/Next.js backend](../event-management-api-nextjs)
-built earlier.
-
-This was verified end-to-end with a real headless-browser test (Puppeteer) driving
-the app against a live instance of the API — create an event, register a user,
-trigger a duplicate-registration rejection, fill an event to capacity, unregister,
-and delete — all 15 checks passed against the actual running UI, not just a build.
-Two screenshots of the real rendered app are below.
-
 ## Screenshots
 
 **List view** — capacity gauge per event, color-coded by fill level:
